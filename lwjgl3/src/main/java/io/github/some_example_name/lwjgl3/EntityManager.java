@@ -11,15 +11,19 @@ public class EntityManager {
         entities = new ArrayList<>();
     }
 
-    public void addEntities(Entity e){
+    public void addEntity(Entity e){
         entities.add(e);
     }
 
-    public List<Entity> getEntities(){
+    public void removeEntity(Entity e) {
+        entities.remove(e);
+    }
+
+    public List<Entity> getAll(){
         return entities;
     }
 
-    public void updateAll() {
+    public void updateAll(float dt) {
         for (Entity e : entities) {
             e.movementPlayer();
             e.update();
@@ -40,8 +44,4 @@ public class EntityManager {
         }
         batch.end();
     }
-
-    public void movementPlayer(){}
-    public void update(){}
-
 }
