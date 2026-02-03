@@ -1,4 +1,7 @@
-package io.github.some_example_name.lwjgl3;
+package io.github.some_example_name;
+
+import io.github.some_example_name.lwjgl3.Obstacle;
+import io.github.some_example_name.lwjgl3.Player;
 
 import java.util.List;
 
@@ -11,7 +14,7 @@ public class CollisionManager {
 
     public int resolve(
         Player player,
-        Bot bot,
+        io.github.some_example_name.Bot bot,
         List<Obstacle> obstacles,
         float pOldX, float pOldY,
         float bOldX, float bOldY,
