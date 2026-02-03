@@ -1,6 +1,7 @@
 package io.github.some_example_name.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,11 +10,10 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Player extends Entity implements PlayerMovable {
 
-    public enum ShapeType { CIRCLE, SQUARE }
-
-    private ShapeType shape;
-    private float size;
     private float worldW, worldH;
+    private final ShapeType shape;
+    private final float size;
+    private ControlScheme controlScheme;
 
     public Player(float x, float y, float speed, float size,
                   ShapeType shape, float worldW, float worldH) {
@@ -27,20 +27,25 @@ public class Player extends Entity implements PlayerMovable {
 
     @Override
     public void movementPlayer(float dt) {
-        if (Gdx.input.isKeyPressed(Keys.LEFT))  setX(getX() - getSpeed() * dt);
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) setX(getX() + getSpeed() * dt);
-        if (Gdx.input.isKeyPressed(Keys.UP))    setY(getY() + getSpeed() * dt);
-        if (Gdx.input.isKeyPressed(Keys.DOWN))  setY(getY() - getSpeed() * dt);
+        switch (controlScheme){
+            case WASD:
+                if (Gdx.input.isKeyPressed(Input.Keys.A)) setX(getX() - getSpeed() * dt);
+                if (Gdx.input.isKeyPressed(Input.Keys.D)) setX(getX() + getSpeed() * dt);
+                if (Gdx.input.isKeyPressed(Input.Keys.W)) setY(getY() + getSpeed() * dt);
+                if (Gdx.input.isKeyPressed(Input.Keys.S)) setY(getY() - getSpeed() * dt);
+                break;
 
-        // Keep inside screen
+            case ARROW_KEYS:
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT))  setX(getX() - getSpeed() * dt);
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) setX(getX() + getSpeed() * dt);
+                if (Gdx.input.isKeyPressed(Input.Keys.UP))    setY(getY() + getSpeed() * dt);
+                if (Gdx.input.isKeyPressed(Input.Keys.DOWN))  setY(getY() - getSpeed() * dt);
+                break;
+        }
+        // ✅ Clamp using hitbox size
         float half = size / 2f;
-        setX(MathUtils.clamp(getX(), half, worldW - half));
-        setY(MathUtils.clamp(getY(), half, worldH - half));
-    }
-
-    public void setWorldSize(float w, float h) {
-        this.worldW = w;
-        this.worldH = h;
+        setX(Math.max(half, Math.min(getX(), worldW - half)));
+        setY(Math.max(half, Math.min(getY(), worldH - half)));
     }
 
     @Override
@@ -50,22 +55,18 @@ public class Player extends Entity implements PlayerMovable {
 
     @Override
     public void update(float dt) {
-
+        updateBounds();
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
         renderer.setColor(getColor());
+
         if (shape == ShapeType.CIRCLE) {
             renderer.circle(getX(), getY(), size / 2f);
         } else {
             renderer.rect(getX() - size / 2f, getY() - size / 2f, size, size);
         }
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-
     }
 }
 

@@ -26,40 +26,45 @@ public abstract class Entity {
         this.speed = speed;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color){
-        this.color = color;
-    }
-
     public float getX() {
+
         return x;
     }
-
     public void setX(float x) {
+
         this.x = x;
     }
 
     public float getY() {
+
         return y;
     }
-
     public void setY(float y) {
+
         this.y = y;
     }
-
     public float getSpeed() {
+
         return speed;
     }
-
     public void setSpeed(float speed) {
+
         this.speed = speed;
     }
 
+    public Color getColor() {
+        return color;
+    }
+    public void setColor(Color color){
+        this.color = color;
+    }
+    public void draw(SpriteBatch batch) {
+
+    }
+    public abstract void draw(ShapeRenderer renderer);
+    public Rectangle getBounds() {
+        return bounds;
+    }
     protected abstract void updateBounds();
     public abstract void update(float dt);
-    public abstract void draw(ShapeRenderer renderer);
-    public abstract void draw(SpriteBatch batch);
 }

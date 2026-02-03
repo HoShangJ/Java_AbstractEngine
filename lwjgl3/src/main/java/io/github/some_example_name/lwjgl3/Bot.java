@@ -10,26 +10,27 @@ public class Bot extends Entity implements AIMovable {
     private float width, height;
     private float dirX, dirY;
 
-    public Bot(float x, float y, float speed, float width, float height,
+    public Bot(float x, float y, float speed,
+               float width, float height,
                float worldW, float worldH) {
         super(x, y, Color.GREEN, speed);
         this.width = width;
         this.height = height;
         this.worldW = worldW;
         this.worldH = worldH;
-        randomizeDirection();
+        setRandomDirection();
         updateBounds();
     }
 
-    public void setWorldSize(float w, float h) {
-        this.worldW = w;
-        this.worldH = h;
-    }
-
-    public void randomizeDirection() {
+    private void setRandomDirection() {
         float angle = MathUtils.random(0f, 360f);
         dirX = MathUtils.cosDeg(angle);
         dirY = MathUtils.sinDeg(angle);
+    }
+
+
+    public void onCollision() {
+        setRandomDirection();
     }
 
     @Override
@@ -39,19 +40,30 @@ public class Bot extends Entity implements AIMovable {
 
         boolean hitEdge = false;
 
-        if (getX() < 0) { setX(0); hitEdge = true; }
-        if (getX() + width > worldW) { setX(worldW - width); hitEdge = true; }
-        if (getY() < 0) { setY(0); hitEdge = true; }
-        if (getY() + height > worldH) { setY(worldH - height); hitEdge = true; }
-
-        if (hitEdge) {
-            randomizeDirection();
-            // ensure it points inward
-            if (getX() == 0 && dirX < 0) dirX *= -1;
-            if (getX() + width == worldW && dirX > 0) dirX *= -1;
-            if (getY() == 0 && dirY < 0) dirY *= -1;
-            if (getY() + height == worldH && dirY > 0) dirY *= -1;
+        // Left edge
+        if (getX() < 0) {
+            setX(0);
+            hitEdge = true;
         }
+
+        // Right edge ✅ (must use + width)
+        if (getX() + width > worldW) {
+            setX(worldW - width);
+            hitEdge = true;
+        }
+
+        // Bottom edge
+        if (getY() < 0) {
+            setY(0);
+            hitEdge = true;
+        }
+
+        // Top edge ✅ (must use + height)
+        if (getY() + height > worldH) {
+            setY(worldH - height);
+            hitEdge = true;
+        }
+        if (hitEdge) onCollision();
     }
 
     @Override
@@ -61,7 +73,7 @@ public class Bot extends Entity implements AIMovable {
 
     @Override
     public void update(float dt) {
-
+        updateBounds();
     }
 
     @Override
@@ -72,10 +84,5 @@ public class Bot extends Entity implements AIMovable {
             getX() + width, getY(),
             getX() + width / 2f, getY() + height
         );
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-
     }
 }

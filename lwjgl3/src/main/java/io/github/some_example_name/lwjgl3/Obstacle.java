@@ -16,10 +16,18 @@ public class Obstacle extends Entity {
         updateBounds();
     }
 
-    public static Obstacle spawnRandom(float worldW, float worldH, float w, float h) {
-        float x = MathUtils.random(0f, worldW - w);
-        float y = MathUtils.random(0f, worldH - h);
-        return new Obstacle(x, y, w, h);
+    public static Obstacle spawnRandom(
+        float worldW, float worldH,
+        float width, float height
+    ) {
+        float x = MathUtils.random(0f, worldW - width);
+        float y = MathUtils.random(0f, worldH - height);
+        return new Obstacle(x, y, width, height);
+    }
+
+    @Override
+    public void update(float dt) {
+        updateBounds();
     }
 
     @Override
@@ -28,18 +36,8 @@ public class Obstacle extends Entity {
     }
 
     @Override
-    public void update(float dt) {
-
-    }
-
-    @Override
     public void draw(ShapeRenderer renderer) {
         renderer.setColor(getColor());
         renderer.rect(getX(), getY(), width, height);
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-
     }
 }
