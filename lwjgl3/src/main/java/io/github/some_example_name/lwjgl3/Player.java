@@ -16,12 +16,13 @@ public class Player extends Entity implements PlayerMovable {
     private ControlScheme controlScheme;
 
     public Player(float x, float y, float speed, float size,
-                  ShapeType shape, float worldW, float worldH) {
+                  ShapeType shape, float worldW, float worldH, ControlScheme scheme) {
         super(x, y, Color.RED, speed);
         this.size = size;
         this.shape = shape;
         this.worldW = worldW;
         this.worldH = worldH;
+        this.controlScheme = scheme;
         updateBounds();
     }
 

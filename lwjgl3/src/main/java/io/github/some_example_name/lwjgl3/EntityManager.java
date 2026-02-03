@@ -40,19 +40,4 @@ public class EntityManager {
             e.update(dt);
         }
     }
-
-    public void drawAll(ShapeRenderer sr, SpriteBatch batch) {
-
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        for (Entity e : entities) {
-            e.draw(sr);
-        }
-        sr.end();
-
-        batch.begin();
-        for (Entity e : entities) {
-            e.draw(batch);
-        }
-        batch.end();
-    }
 }
