@@ -1,0 +1,45 @@
+package io.github.some_example_name.lwjgl3;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
+
+public class Obstacle extends Entity {
+    private final float width;
+    private final float height;
+
+    public Obstacle(float x, float y, float width, float height) {
+        super(x, y, Color.GRAY, 0);
+        this.width = width;
+        this.height = height;
+        updateBounds();
+    }
+
+    public static Obstacle spawnRandom(float worldW, float worldH, float w, float h) {
+        float x = MathUtils.random(0f, worldW - w);
+        float y = MathUtils.random(0f, worldH - h);
+        return new Obstacle(x, y, w, h);
+    }
+
+    @Override
+    protected void updateBounds() {
+        bounds.set(getX(), getY(), width, height);
+    }
+
+    @Override
+    public void update(float dt) {
+
+    }
+
+    @Override
+    public void draw(ShapeRenderer renderer) {
+        renderer.setColor(getColor());
+        renderer.rect(getX(), getY(), width, height);
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+
+    }
+}

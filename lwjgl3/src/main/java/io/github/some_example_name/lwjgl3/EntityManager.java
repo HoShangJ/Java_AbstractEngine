@@ -25,8 +25,19 @@ public class EntityManager {
 
     public void updateAll(float dt) {
         for (Entity e : entities) {
-            e.movementPlayer();
-            e.update();
+
+            // Player movement (if entity supports it)
+            if (e instanceof PlayerMovable) {
+                ((PlayerMovable) e).movementPlayer(dt);
+            }
+
+            // AI movement (if entity supports it)
+            if (e instanceof AIMovable) {
+                ((AIMovable) e).movementAI(dt);
+            }
+
+            // Update (refresh bounds, internal logic)
+            e.update(dt);
         }
     }
 
