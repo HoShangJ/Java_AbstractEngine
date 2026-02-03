@@ -1,5 +1,4 @@
 package io.github.some_example_name;
-import io.github.some_example_name.lwjgl3.PlayerMovable;
 
 import java.util.ArrayList;
 import java.util.List;

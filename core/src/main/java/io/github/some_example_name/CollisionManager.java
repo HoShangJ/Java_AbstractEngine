@@ -1,8 +1,5 @@
 package io.github.some_example_name;
 
-import io.github.some_example_name.lwjgl3.Obstacle;
-import io.github.some_example_name.lwjgl3.Player;
-
 import java.util.List;
 
 public class CollisionManager {

@@ -3,7 +3,6 @@ package io.github.some_example_name;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import io.github.some_example_name.lwjgl3.Entity;
 
 public class Bot extends Entity implements io.github.some_example_name.AIMovable {
     private float worldW, worldH;
