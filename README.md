@@ -1,4 +1,4 @@
-# INF1009_P3-02
+# INF1009_P3_02
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
