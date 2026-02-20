@@ -1,4 +1,4 @@
-package io.github.some_example_name.lwjgl3;
+package io.github.P3_2.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
@@ -11,7 +11,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new io.github.some_example_name.GameMaster(), getDefaultConfiguration());
+        return new Lwjgl3Application(new io.github.P3_2.GameMaster(), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
